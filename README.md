@@ -34,3 +34,15 @@ Most personal content lives in `data/`:
 - `skills.json` — skills
 - `articles.json` — writing
 - `now.json` — current focus
+
+
+## Case-study projects
+
+Click **Read the case ↗** on a project card. Each project now has a richer case-study view with:
+- project context
+- stack tags
+- key highlights
+- an interactive-style pipeline
+- problem / approach / result sections
+
+Edit these fields in `data/projects.json` to expand each project later.

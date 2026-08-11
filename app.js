@@ -39,7 +39,7 @@ function render(){
 }
 
 function renderNow(){
-  const el = $("#nowGrid");
+  const el = $(".now-grid");
   if(!el || !NOW) return;
   el.innerHTML = NOW.map(x => `
     <article>
@@ -117,15 +117,68 @@ function renderProjects(category){
 function openProject(id){
   const p = PROJECTS.find(x => x.id===id);
   if(!p) return;
+
+  const pipeline = (p.pipeline || []).map((step, i) => `
+    <div class="case-step">
+      <span>0${i+1}</span>
+      <strong>${step}</strong>
+    </div>
+    ${i < (p.pipeline || []).length - 1 ? '<div class="case-arrow">→</div>' : ''}
+  `).join("");
+
+  const highlights = (p.highlights || []).map(([label, value]) => `
+    <div class="case-stat">
+      <span>${label}</span>
+      <strong>${value}</strong>
+    </div>
+  `).join("");
+
+  const external = p.link && p.link !== "#"
+    ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener noreferrer">Open project ↗</a>`
+    : `<span class="case-note">Project link coming soon.</span>`;
+
   $("#modalContent").innerHTML = `
-    <div class="modal-kicker">${p.category} / ${p.year} / ${p.status}</div>
-    <h2 class="modal-title">${p.title}</h2>
-    <p class="modal-copy">${p.short}</p>
+    <div class="case-hero">
+      <div>
+        <div class="modal-kicker">${p.category} / ${p.year} / ${p.status}</div>
+        <h2 class="modal-title">${p.title}</h2>
+        <p class="case-tagline">${p.tagline || p.short}</p>
+      </div>
+      <div class="case-id">${p.id.toUpperCase()}</div>
+    </div>
+
     <div class="modal-tags">${p.stack.map(s=>`<span>${s}</span>`).join("")}</div>
-    <h3>The problem</h3><p class="modal-copy">${p.problem}</p>
-    <h3>Approach</h3><p class="modal-copy">${p.approach}</p>
-    <h3>Result</h3><p class="modal-copy">${p.result}</p>
-    <a class="project-link" href="${p.link}">External link ↗</a>`;
+
+    <div class="case-stats">${highlights}</div>
+
+    <section class="case-section">
+      <div class="case-label">01 / The idea</div>
+      <p class="modal-copy">${p.details || p.short}</p>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">02 / Pipeline</div>
+      <div class="case-pipeline">${pipeline}</div>
+    </section>
+
+    <section class="case-section case-columns">
+      <div>
+        <div class="case-label">03 / Problem</div>
+        <p class="modal-copy">${p.problem}</p>
+      </div>
+      <div>
+        <div class="case-label">04 / Approach</div>
+        <p class="modal-copy">${p.approach}</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">05 / Result</div>
+      <p class="modal-copy">${p.result}</p>
+    </section>
+
+    <div class="case-footer">${external}</div>
+  `;
   $("#projectModal").showModal();
 }
 $("#modalClose").addEventListener("click", () => $("#projectModal").close());

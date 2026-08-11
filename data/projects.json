@@ -16,7 +16,36 @@
     "problem": "Raw biomedical signals are useful but messy to inspect repeatedly by hand.",
     "approach": "Built a modular Streamlit workflow covering loading, filtering, rectification, envelope extraction, normalization, FFT, STFT and CWT.",
     "result": "A reusable analysis interface for exploring gait and EMG signals with visual outputs.",
-    "link": "#"
+    "link": "#",
+    "featured": true,
+    "tagline": "From raw physiological signals to interpretable features.",
+    "pipeline": [
+      "Load TXT",
+      "Band-pass 20–450 Hz",
+      "Rectify",
+      "Envelope",
+      "Normalize",
+      "FFT / STFT / CWT"
+    ],
+    "highlights": [
+      [
+        "Input",
+        "EMG + gait sensor data"
+      ],
+      [
+        "Processing",
+        "Filtering & feature extraction"
+      ],
+      [
+        "Output",
+        "Interactive visual analysis"
+      ],
+      [
+        "Stack",
+        "Python / SciPy / Streamlit"
+      ]
+    ],
+    "details": "The app is structured as a small analysis workstation rather than a single script. Each processing stage can be inspected visually, making it easier to spot bad data, unexpected artifacts and parameter choices before interpreting the result."
   },
   {
     "id": "web3-lab",
@@ -34,7 +63,35 @@
     "problem": "Separating useful blockchain primitives from hype requires building and testing ideas directly.",
     "approach": "Explore smart contracts, stablecoin mechanics and decentralized application patterns through small experiments.",
     "result": "A growing notebook of prototypes, technical notes and questions worth investigating.",
-    "link": "#"
+    "link": "#",
+    "featured": false,
+    "tagline": "Build the primitive first. Debate the narrative later.",
+    "pipeline": [
+      "Question",
+      "Contract design",
+      "Local experiment",
+      "Test assumptions",
+      "Document result"
+    ],
+    "highlights": [
+      [
+        "Focus",
+        "Smart contracts"
+      ],
+      [
+        "Topics",
+        "Stablecoins / Web3"
+      ],
+      [
+        "Method",
+        "Small experiments"
+      ],
+      [
+        "Output",
+        "Notes + prototypes"
+      ]
+    ],
+    "details": "This is intentionally a living lab. The goal is to understand what blockchain primitives are useful for by actually implementing and testing them, rather than collecting buzzwords."
   },
   {
     "id": "market-notebook",
@@ -51,6 +108,35 @@
     "problem": "Market narratives move fast; writing down the thesis forces clearer thinking.",
     "approach": "Track liquidity, macro variables, crypto structure and competing bull/bear cases.",
     "result": "An evolving public research notebook rather than a signal-selling dashboard.",
-    "link": "#"
+    "link": "#",
+    "featured": false,
+    "tagline": "A public notebook for evolving market theses.",
+    "pipeline": [
+      "Macro data",
+      "Liquidity",
+      "Market structure",
+      "Bull case",
+      "Bear case",
+      "Invalidation"
+    ],
+    "highlights": [
+      [
+        "Scope",
+        "Macro + crypto"
+      ],
+      [
+        "Framework",
+        "Thesis / antithesis"
+      ],
+      [
+        "Focus",
+        "Liquidity & structure"
+      ],
+      [
+        "Output",
+        "Research notes"
+      ]
+    ],
+    "details": "The notebook separates observations from conclusions. Every thesis should have a bull case, a bear case and a condition that would make the thesis wrong."
   }
 ]
