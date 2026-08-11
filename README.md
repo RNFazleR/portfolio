@@ -1,45 +1,36 @@
-# FAZLE / PERSONAL OS
+# Fazle — Personal OS
 
-A modular personal website based on the agreed information architecture:
-Home → About → Experience → Projects → Lab → Writing → Markets → Now → Contact.
+Personal portfolio for Rifat Naufal Fazle.
 
-## Run locally
+## Local development
 
-Because content is separated into JSON files, use a small local server instead of double-clicking index.html.
+Because the site loads JSON files with `fetch()`, serve the folder through a local server:
 
-### Easiest
-If Python is installed:
+```bash
+python -m http.server 8000
+```
 
-    python -m http.server 8000
+Then open `http://localhost:8000`.
 
-Then open:
+## Deploy
 
-    http://localhost:8000
+GitHub Pages is configured from the `main` branch.
 
-## Where to edit content
+After editing:
 
-All content is in `data/`:
-- site.json
-- projects.json
-- articles.json
-- experience.json
-- skills.json
+```bash
+git add .
+git commit -m "Update portfolio"
+git push
+```
 
-Visual/UI is in:
-- style.css
+## Data
 
-Interaction is in:
-- app.js
+Most personal content lives in `data/`:
 
-Main structure:
-- index.html
-
-## Important
-Replace the placeholder email and external profile URLs in `data/site.json`.
-
-No analytics, cookies, scraping, or third-party runtime scripts are included.
-
-
-## Personal layer v2
-The site now includes a stronger personal identity, cursor-reactive hero, magnetic buttons,
-scroll reveals, an expanded "Currently obsessed with" section, and more personal metadata.
+- `site.json` — identity and links
+- `projects.json` — projects
+- `experience.json` — experience
+- `skills.json` — skills
+- `articles.json` — writing
+- `now.json` — current focus

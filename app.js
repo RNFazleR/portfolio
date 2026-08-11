@@ -1,7 +1,7 @@
 const $ = (s, root=document) => root.querySelector(s);
 const $$ = (s, root=document) => [...root.querySelectorAll(s)];
 
-let SITE, PROJECTS, ARTICLES, EXPERIENCE, SKILLS;
+let SITE, PROJECTS, ARTICLES, EXPERIENCE, SKILLS, NOW;
 
 async function loadData(){
   const files = ["site","projects","articles","experience","skills","now"];
@@ -12,6 +12,11 @@ async function loadData(){
 
 function render(){
   $("#skills").innerHTML = SKILLS.map(x => `<span>${x}</span>`).join("");
+
+  // Keep page identity in sync with data/site.json.
+  document.title = `${SITE.short_name || "Fazle"} — Personal OS`;
+  const heroName = $(".hero .eyebrow");
+  if (heroName) heroName.innerHTML = `<span class="dot"></span> ${SITE.name.toUpperCase()} / 2026`;
 
   $("#experienceList").innerHTML = EXPERIENCE.map(x => `
     <article class="timeline-item">
@@ -144,6 +149,22 @@ $("#themeToggle").addEventListener("click", () => {
   document.documentElement.classList.toggle("light");
   localStorage.setItem("fazle-theme", document.documentElement.classList.contains("light") ? "light" : "dark");
 });
+
+// Mobile navigation
+const menuToggle = $("#menuToggle");
+const siteNav = $("#siteNav");
+if (menuToggle && siteNav) {
+  menuToggle.addEventListener("click", () => {
+    const open = siteNav.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.textContent = open ? "×" : "☰";
+  });
+  $$("#siteNav a").forEach(link => link.addEventListener("click", () => {
+    siteNav.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  }));
+}
 
 loadData().catch(err => {
   console.error(err);
