@@ -1,0 +1,56 @@
+[
+  {
+    "id": "gait-emg",
+    "title": "Gait & EMG Analysis",
+    "category": "Biomedical",
+    "status": "Completed",
+    "year": "2026",
+    "stack": [
+      "Python",
+      "SciPy",
+      "Streamlit",
+      "NeuroKit",
+      "PyWavelets"
+    ],
+    "short": "Interactive analysis for gait parameters, EMG preprocessing and time-frequency exploration.",
+    "problem": "Raw biomedical signals are useful but messy to inspect repeatedly by hand.",
+    "approach": "Built a modular Streamlit workflow covering loading, filtering, rectification, envelope extraction, normalization, FFT, STFT and CWT.",
+    "result": "A reusable analysis interface for exploring gait and EMG signals with visual outputs.",
+    "link": "#"
+  },
+  {
+    "id": "web3-lab",
+    "title": "Blockchain Experiments",
+    "category": "Blockchain",
+    "status": "Building",
+    "year": "2026",
+    "stack": [
+      "Solidity",
+      "Web3",
+      "Stablecoins",
+      "Lisk"
+    ],
+    "short": "Hands-on experiments around smart contracts, stablecoins and practical Web3 systems.",
+    "problem": "Separating useful blockchain primitives from hype requires building and testing ideas directly.",
+    "approach": "Explore smart contracts, stablecoin mechanics and decentralized application patterns through small experiments.",
+    "result": "A growing notebook of prototypes, technical notes and questions worth investigating.",
+    "link": "#"
+  },
+  {
+    "id": "market-notebook",
+    "title": "Market Notebook",
+    "category": "Markets",
+    "status": "Ongoing",
+    "year": "2026",
+    "stack": [
+      "Macro",
+      "Crypto",
+      "Market Structure"
+    ],
+    "short": "A personal research space for macro, crypto and market-structure observations.",
+    "problem": "Market narratives move fast; writing down the thesis forces clearer thinking.",
+    "approach": "Track liquidity, macro variables, crypto structure and competing bull/bear cases.",
+    "result": "An evolving public research notebook rather than a signal-selling dashboard.",
+    "link": "#"
+  }
+]

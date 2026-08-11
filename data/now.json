@@ -1,0 +1,17 @@
+[
+  {
+    "label": "01",
+    "title": "Biomedical signal processing",
+    "text": "Turning raw EMG, gait and physiological signals into something interpretable."
+  },
+  {
+    "label": "02",
+    "title": "Web3 / blockchain",
+    "text": "Exploring smart contracts, stablecoins and practical on-chain systems."
+  },
+  {
+    "label": "03",
+    "title": "Capital markets",
+    "text": "Learning macro, liquidity, crypto market structure and how narratives become prices."
+  }
+]

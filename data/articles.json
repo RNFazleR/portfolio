@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stft-notes",
+    "title": "Understanding STFT without the hand-waving",
+    "category": "Biomedical",
+    "date": "2026-08-01",
+    "time": "6 min",
+    "excerpt": "A practical mental model for seeing how a signal's frequency content changes over time."
+  },
+  {
+    "id": "stablecoins",
+    "title": "What stablecoins are actually trying to solve",
+    "category": "Blockchain",
+    "date": "2026-07-20",
+    "time": "7 min",
+    "excerpt": "Notes on stablecoins as settlement infrastructure, not just another crypto asset."
+  },
+  {
+    "id": "liquidity",
+    "title": "Why liquidity keeps showing up in market conversations",
+    "category": "Markets",
+    "date": "2026-07-12",
+    "time": "5 min",
+    "excerpt": "A beginner-friendly notebook on liquidity, risk appetite and price discovery."
+  }
+]

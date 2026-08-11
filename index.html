@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Rifat Naufal Fazle Rabb — Biomedical Engineering, software, blockchain and markets.">
+  <title>Fazle — Personal OS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <header class="nav">
+    <a class="logo" href="#home">fazle<span>.</span></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#lab">Lab</a>
+      <a href="#writing">Writing</a>
+      <a href="#markets">Markets</a>
+    </nav>
+    <div class="nav-right">
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">◐</button>
+      <a class="nav-contact" href="#contact">Let's talk ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero page">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="dot"></span> RIFAT NAUFAL FAZLE Rabb / 2026</p>
+        <h1>I build where <em>biology, technology & markets</em> overlap.</h1>
+        <p class="hero-text">Biomedical Engineering student at ITS. I like turning messy signals, vague ideas and
+          complicated systems into things that can actually be used.</p>
+        <div class="hero-tags">
+          <span>BIOMEDICAL</span><span>SOFTWARE</span><span>WEB3</span><span>MARKETS</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary magnetic" href="#projects">See what I've built ↓</a>
+          <a class="btn ghost magnetic" href="#about">A little about me</a>
+        </div>
+        <div class="stats">
+          <div><b>ITS</b><span>Biomedical Engineering</span></div>
+          <div><b>2024—2028</b><span>Current chapter</span></div>
+          <div><b>∞</b><span>Things to investigate</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal" id="heroVisual">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="portrait">
+          <div class="portrait-top">RIFAT NAUFAL</div>
+          <span>FN</span>
+          <small>BIOMEDICAL ENGINEERING<br>INSTITUT TEKNOLOGI SEPULUH NOPEMBER</small>
+        </div>
+        <div class="float f1">⌁ <b>Signal Lab</b><small>EMG / gait / time-frequency</small></div>
+        <div class="float f2">◈ <b>On-chain</b><small>contracts / stablecoins</small></div>
+        <div class="coords">SURABAYA / ID<br>07°15'S · 112°45'E</div>
+        <div class="scanline"></div>
+      </div>
+    </section>
+
+    <div class="ticker">
+      <div>BIOMEDICAL ENGINEERING <i>✦</i> SOFTWARE <i>✦</i> BLOCKCHAIN <i>✦</i> CAPITAL MARKETS <i>✦</i> BIOMEDICAL
+        ENGINEERING <i>✦</i></div>
+    </div>
+
+    <section id="about" class="page section">
+      <div class="label">01 / About</div>
+      <div class="split">
+        <h2>Curious by default.<br><span>Builder when it matters.</span></h2>
+        <div>
+          <p>I'm studying Biomedical Engineering at Institut Teknologi Sepuluh Nopember. The degree gives me the biology
+            + engineering base; outside the syllabus, I keep getting pulled toward software, blockchain, economics and
+            markets.</p>
+          <p>I learn best by building. From signal-analysis tools to Web3 experiments, I like projects where there is
+            something tangible at the end: a system, a prototype, a useful workflow, or simply a better question.</p>
+          <div id="skills" class="chips"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="page section">
+      <div class="label">02 / Experience</div>
+      <div id="experienceList" class="timeline"></div>
+    </section>
+
+    <section id="projects" class="page section">
+      <div class="section-top">
+        <div class="label">03 / Selected work</div>
+        <div id="projectFilters" class="filters"></div>
+      </div>
+      <div id="projectGrid" class="project-grid"></div>
+    </section>
+
+    <section id="lab" class="page section">
+      <div class="label">04 / Lab</div>
+      <div class="lab-intro">
+        <h2>Not everything<br>needs to be a <em>project.</em></h2>
+        <p>A place for experiments, half-built ideas and things I'm trying to understand before they become “official”.
+        </p>
+      </div>
+      <div class="lab-grid">
+        <article><span>01</span>
+          <h3>Experiments</h3>
+          <p>EMG activation detection, ECG simulation, CWT visualisation and small Web3 prototypes.</p>
+        </article>
+        <article><span>02</span>
+          <h3>Ideas</h3>
+          <p>Biomedical data systems, on-chain credentials, market dashboards and other questionable ideas.</p>
+        </article>
+        <article><span>03</span>
+          <h3>Learning</h3>
+          <p>Signals → AI → smart contracts → macro. The list is intentionally unfinished.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="writing" class="page section">
+      <div class="section-top">
+        <div class="label">05 / Writing</div>
+        <div class="search-wrap"><span>⌕</span><input id="articleSearch" placeholder="Search notes..."></div>
+      </div>
+      <div id="articleList" class="article-list"></div>
+    </section>
+
+    <section id="markets" class="page section market-section">
+      <div class="label">06 / Markets</div>
+      <div class="market-head">
+        <div>
+          <p class="eyebrow">PUBLIC RESEARCH NOTEBOOK</p>
+          <h2>Think in theses,<br><em>not predictions.</em></h2>
+        </div>
+        <p>Macro, crypto and market structure — documented as evolving ideas, not financial advice or magic signals.</p>
+      </div>
+      <div class="market-grid">
+        <article><span>01 / MACRO</span>
+          <h3>Liquidity</h3>
+          <p>Watching how liquidity conditions affect risk appetite and asset pricing.</p>
+        </article>
+        <article><span>02 / CRYPTO</span>
+          <h3>Bitcoin</h3>
+          <p>Structure, flows, narratives and the difference between conviction and noise.</p>
+        </article>
+        <article><span>03 / THESIS</span>
+          <h3>My framework</h3>
+          <p>Write the bull case. Write the bear case. Then identify what would prove either wrong.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="now" class="page section now">
+      <div class="label">07 / Now</div>
+      <div class="now-grid">
+        <article><span>01</span>
+          <h3>Biomedical AI</h3>
+          <p>Signals, physiological data, feature extraction and machine learning.</p>
+        </article>
+        <article><span>02</span>
+          <h3>On-chain systems</h3>
+          <p>Smart contracts, stablecoins and figuring out what Web3 is actually useful for.</p>
+        </article>
+        <article><span>03</span>
+          <h3>Financial markets</h3>
+          <p>Learning how macro, liquidity and market structure connect.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact page">
+      <p class="eyebrow"><span class="dot"></span> OPEN TO INTERESTING PROBLEMS</p>
+      <h2>Let's build<br><em>something useful.</em></h2>
+      <a id="emailLink" class="email" href="mailto:rifatfazlerabb@gmail.com">rifatfazlerabb@gmail.com ↗</a>
+      <div class="socials">
+        <a id="linkedinLink" href="#" target="_blank">LinkedIn</a>
+        <a id="githubLink" href="#" target="_blank">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>fazle.</span><span>© 2026 / PERSONAL OS</span></footer>
+
+  <dialog id="projectModal">
+    <button class="modal-close" id="modalClose">×</button>
+    <div id="modalContent"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
