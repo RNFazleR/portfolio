@@ -183,3 +183,34 @@ dialog{max-height:88vh;overflow:auto;border-radius:2px}
   .case-stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .case-columns{grid-template-columns:1fr;gap:0}
 }
+
+/* Mobile hero composition: keep the visual as a card, not a pile of overlays. */
+@media (max-width: 760px){
+  .page{padding-left:18px;padding-right:18px}
+  .hero{padding-top:42px;padding-bottom:55px;gap:34px}
+  .hero-visual{height:360px;width:100%;}
+  .hero-visual:after{display:none}
+  .portrait{width:170px;height:220px;}
+  .portrait span{font-size:52px;letter-spacing:-5px}
+  .portrait small{font-size:8px;max-width:120px}
+  .portrait-top{top:12px;left:12px}
+  .orbit-a{width:270px;height:165px}
+  .orbit-b{width:165px;height:270px}
+  .f1{top:24px;left:14px;right:auto;transform:none}
+  .f2{right:14px;bottom:22px;top:auto;transform:none}
+  .float{padding:10px 11px;max-width:170px;font-size:15px}
+  .float b{font-size:10px}
+  .float small{font-size:7px}
+  .coords{bottom:11px;left:12px;font-size:7px}
+}
+
+@media (max-width: 430px){
+  .hero-visual{height:330px}
+  .portrait{width:150px;height:200px}
+  .portrait span{font-size:46px}
+  .orbit-a{width:235px;height:145px}
+  .orbit-b{width:145px;height:235px}
+  .float{max-width:145px;padding:9px 10px}
+  .f1{top:20px;left:10px}
+  .f2{right:10px;bottom:18px}
+}
