@@ -61,10 +61,62 @@ function renderFilters(){
   }));
 }
 
-function projectVisual(p, index){
-  // Visual is based on the PROJECT CATEGORY, not its position in the filtered list.
-  // This prevents Blockchain/Markets cards from accidentally getting the EMG visual.
+function emgVisual(){
+  // EMG burst aesthetic — two gait-cycle-like muscle activation bursts over a
+  // quiet baseline, deterministic (not random) so the card doesn't reshuffle
+  // on every re-render.
+  const w = 300, h = 100, n = 140;
+  let d = "";
+  for(let i = 0; i <= n; i++){
+    const t = i / n;
+    const x = t * w;
+    const envelope = Math.exp(-Math.pow((t - 0.28) / 0.09, 2)) * 0.85 +
+                      Math.exp(-Math.pow((t - 0.72) / 0.09, 2)) * 0.85 + 0.05;
+    const noise = Math.sin(i * 12.9) * 0.5 + Math.sin(i * 7.3 + 1) * 0.3 + Math.sin(i * 21.7 + 2) * 0.2;
+    const y = 50 - noise * envelope * 38;
+    d += (i === 0 ? "M" : "L") + x.toFixed(1) + "," + y.toFixed(1) + " ";
+  }
+  return `<div class="visual signal waveform">
+      <div class="wave-grid"></div>
+      <svg class="wave-trace" viewBox="0 0 300 100" preserveAspectRatio="none">
+        <path d="${d.trim()}" />
+      </svg>
+      <div class="wave-scan"></div>
+      <span class="visual-label">EMG / GAIT CYCLE</span>
+    </div>`;
+}
+
+function spectrogramVisual(){
+  // Time-frequency heatmap aesthetic (STFT/CWT) — deterministic pseudo-energy pattern,
+  // not random, so the card doesn't flicker/reshuffle on every re-render.
+  const cols = 14, rows = 5;
+  let cells = "";
+  for(let r = 0; r < rows; r++){
+    for(let c = 0; c < cols; c++){
+      const t = c / (cols - 1);
+      const f = r / (rows - 1);
+      const energy = Math.exp(-Math.pow((f - 0.5) - 0.25 * Math.sin(t * 6.283), 2) * 8) *
+                     (0.35 + 0.65 * Math.abs(Math.sin(t * 3.14 + f)));
+      const alpha = Math.max(0.06, Math.min(0.95, energy)).toFixed(2);
+      cells += `<i style="opacity:${alpha}"></i>`;
+    }
+  }
+  return `<div class="visual spectrogram">
+      <div class="spec-axis spec-axis-f">FREQ</div>
+      <div class="spec-grid" style="--cols:${cols};--rows:${rows}">${cells}</div>
+      <div class="spec-axis spec-axis-t">TIME →</div>
+      <span class="visual-label">STFT / CWT</span>
+    </div>`;
+}
+
+function projectVisual(p){
+  // Visual is based on the PROJECT CATEGORY (and an explicit visualType field),
+  // never on position/index in the filtered list. This prevents Blockchain/Markets
+  // cards from accidentally getting a Biomedical visual, and lets multiple
+  // Biomedical projects each get their own distinct look.
   if(p.category === "Biomedical"){
+    if(p.visualType === "emg") return emgVisual();
+    if(p.visualType === "spectrogram") return spectrogramVisual();
     return `<div class="visual signal">
       <div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
       <span class="visual-label">EMG / GAIT</span>
@@ -99,7 +151,7 @@ function renderProjects(category){
   $("#projectGrid").innerHTML = list.map((p,i) => `
     <article class="project" data-id="${p.id}">
       <div class="project-number">0${i+1}</div>
-      ${projectVisual(p,i)}
+      ${projectVisual(p)}
       <div class="project-info">
         <p class="project-type">${p.category} · ${p.year}<span class="status">${p.status}</span></p>
         <h3>${p.title}</h3>
@@ -133,9 +185,53 @@ function openProject(id){
     </div>
   `).join("");
 
-  const external = p.link && p.link !== "#"
-    ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener noreferrer">Open project ↗</a>`
-    : `<span class="case-note">Project link coming soon.</span>`;
+  // Section numbers are assigned dynamically (not hardcoded) since optional
+  // sections — Screenshots, What I learned — only appear for some projects.
+  // Numbers are pre-assigned here, in final display order, so string
+  // interpolation order later in the template can't scramble them.
+  let secN = 0;
+  const num = () => String(++secN).padStart(2, "0");
+  const nIdea = num();
+  const nPipeline = num();
+  const nProblem = num();
+  const nApproach = num();
+  const nResult = num();
+  const nShots = (p.screenshots && p.screenshots.length) ? num() : null;
+  const nLearned = p.learned ? num() : null;
+
+  const screenshotsSection = nShots ? `
+    <section class="case-section">
+      <div class="case-label">${nShots} / Screenshots</div>
+      <div class="case-shots">${p.screenshots.map(s => `
+        <figure>
+          <img src="${s.src}" alt="${s.caption}">
+          <figcaption>${s.caption}</figcaption>
+        </figure>`).join("")}</div>
+    </section>` : "";
+
+  const learnedSection = nLearned ? `
+    <section class="case-section">
+      <div class="case-label">${nLearned} / What I learned</div>
+      <p class="modal-copy">${p.learned}</p>
+    </section>` : "";
+
+  // Optional multi-link footer (GitHub / Live Demo / Documentation). Falls back to
+  // the single `link` field for older project entries that don't define `links`.
+  const external = p.links
+    ? [
+        ["github", "GitHub"],
+        ["demo", "Live Demo"],
+        ["docs", "Documentation"]
+      ].map(([key, label]) => {
+        const url = p.links[key];
+        if (!url) return "";
+        return url === "#"
+          ? `<span class="case-note">${label}: coming soon</span>`
+          : `<a class="project-link" href="${url}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
+      }).join("")
+    : (p.link && p.link !== "#"
+        ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener noreferrer">Open project ↗</a>`
+        : `<span class="case-note">Project link coming soon.</span>`);
 
   $("#modalContent").innerHTML = `
     <div class="case-hero">
@@ -152,31 +248,32 @@ function openProject(id){
     <div class="case-stats">${highlights}</div>
 
     <section class="case-section">
-      <div class="case-label">01 / The idea</div>
+      <div class="case-label">${nIdea} / The idea</div>
       <p class="modal-copy">${p.details || p.short}</p>
     </section>
 
     <section class="case-section">
-      <div class="case-label">02 / Pipeline</div>
+      <div class="case-label">${nPipeline} / Pipeline</div>
       <div class="case-pipeline">${pipeline}</div>
     </section>
 
     <section class="case-section case-columns">
       <div>
-        <div class="case-label">03 / Problem</div>
+        <div class="case-label">${nProblem} / Problem</div>
         <p class="modal-copy">${p.problem}</p>
       </div>
       <div>
-        <div class="case-label">04 / Approach</div>
+        <div class="case-label">${nApproach} / Approach</div>
         <p class="modal-copy">${p.approach}</p>
       </div>
     </section>
 
     <section class="case-section">
-      <div class="case-label">05 / Result</div>
+      <div class="case-label">${nResult} / Result</div>
       <p class="modal-copy">${p.result}</p>
     </section>
-
+    ${screenshotsSection}
+    ${learnedSection}
     <div class="case-footer">${external}</div>
   `;
   $("#projectModal").showModal();
