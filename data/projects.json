@@ -1,51 +1,166 @@
 [
   {
-    "id": "gait-emg",
-    "title": "Gait & EMG Analysis",
+    "id": "biomedical-signal-analysis",
+    "title": "Biomedical Signal Analysis",
     "category": "Biomedical",
     "status": "Completed",
     "year": "2026",
     "stack": [
       "Python",
+      "NumPy",
       "SciPy",
-      "Streamlit",
-      "NeuroKit",
-      "PyWavelets"
+      "Pandas",
+      "Matplotlib",
+      "Streamlit"
     ],
-    "short": "Interactive analysis for gait parameters, EMG preprocessing and time-frequency exploration.",
-    "problem": "Raw biomedical signals are useful but messy to inspect repeatedly by hand.",
-    "approach": "Built a modular Streamlit workflow covering loading, filtering, rectification, envelope extraction, normalization, FFT, STFT and CWT.",
-    "result": "A reusable analysis interface for exploring gait and EMG signals with visual outputs.",
-    "link": "#",
-    "featured": true,
-    "tagline": "From raw physiological signals to interpretable features.",
+    "visualType": "emg",
+    "short": "An interactive Streamlit dashboard for gait-cycle segmentation, joint kinematics and multi-channel EMG analysis from wearable sensor recordings (foot-switch, joint angle, 9-channel EMG).",
+    "problem": "A single walking trial produces foot-switch, joint-angle and 9-channel EMG data at once — none of it means anything until it's filtered, segmented into gait cycles and turned into comparable parameters, and doing that by hand for every trial and every muscle doesn't scale.",
+    "approach": "Built as a multi-page Streamlit dashboard where each sensor stream gets its own processing path: heel/toe force signals go through a Butterworth low-pass filter into heel-strike/toe-off event detection and gait-cycle segmentation; joint angles are normalized per cycle into a mean ± SD ensemble curve per joint; and each EMG channel goes through a Butterworth bandpass filter (20–450 Hz), full-wave rectification, a linear envelope and activation thresholding — with a dedicated STFT page for inspecting any EMG channel's time-frequency content.",
+    "result": "A working analysis dashboard: upload raw sensor files and get gait events, per-joint kinematic curves, EMG activation timing and amplitude parameters (RMS, MAV, iEMG), and an EMG spectrogram — all from one interface, built as an engineering learning tool rather than a diagnostic device.",
+    "link": "https://github.com/RNFazleR/Biomedical-Signal-Analysis",
+    "links": {
+      "github": "https://github.com/RNFazleR/Biomedical-Signal-Analysis"
+    },
+    "featured": false,
+    "tagline": "From raw wearable-sensor traces to gait cycles, joint curves and muscle activation.",
     "pipeline": [
-      "Load TXT",
-      "Band-pass 20–450 Hz",
-      "Rectify",
-      "Envelope",
-      "Normalize",
-      "FFT / STFT / CWT"
+      "Sensor Upload (FSR / Angle / EMG)",
+      "Butterworth Filtering",
+      "Gait Event Detection",
+      "EMG Rectify + Envelope",
+      "Per-Cycle Normalization",
+      "STFT Spectrogram",
+      "Parameter Tables"
     ],
     "highlights": [
       [
-        "Input",
-        "EMG + gait sensor data"
+        "Pages",
+        "Gait / Joint / EMG / STFT"
       ],
       [
-        "Processing",
-        "Filtering & feature extraction"
+        "Gait",
+        "Heel-strike & toe-off detection"
+      ],
+      [
+        "EMG",
+        "Bandpass, rectify, envelope, activation"
       ],
       [
         "Output",
-        "Interactive visual analysis"
-      ],
-      [
-        "Stack",
-        "Python / SciPy / Streamlit"
+        "Mean ± SD kinematics, RMS / MAV / iEMG"
       ]
     ],
-    "details": "The app is structured as a small analysis workstation rather than a single script. Each processing stage can be inspected visually, making it easier to spot bad data, unexpected artifacts and parameter choices before interpreting the result."
+    "details": "The dashboard treats each signal type on its own terms instead of forcing one shared pipeline: a foot-switch just needs a threshold, EMG needs rectification and an envelope before it means anything, and joint angles need per-cycle normalization before they're comparable across strides. Six pages — Gait Parameters, Joint Analysis, Dynamic EMG, EMG Preprocessing, Parameter Table and STFT Analysis — cover the full path from raw sensor file to summary parameters.",
+    "learned": "Splitting FSR, joint-angle and EMG into three separate but parallel processing paths — instead of one shared pipeline — made it clear how differently each signal type actually needs to be treated before it's usable, and how much of the real work in biomedical signal analysis is choosing the right filter and normalization for each channel, not just running an FFT.",
+    "screenshots": [
+      {
+        "src": "assets/projects/biomedical-signal-analysis/01-dashboard-overview.png",
+        "caption": "Dashboard overview — dataset loaded (7043 samples × 15 channels)"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/02-gait-heel-toe.png",
+        "caption": "Gait Parameters — raw heel & toe FSR signals"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/03-joint-angles-raw.png",
+        "caption": "Joint Analysis — raw hip / knee / ankle angles"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/04-joint-hip-ensemble.png",
+        "caption": "Joint Analysis — hip angle, mean ± SD gait-cycle ensemble"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/05-emg-raw-signal.png",
+        "caption": "Dynamic EMG — 9-channel raw EMG"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/06-emg-preprocessing.png",
+        "caption": "EMG Preprocessing — per-muscle envelope with tunable cutoff"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/07-parameter-table.png",
+        "caption": "Parameter Table — temporal & joint kinematics summary"
+      },
+      {
+        "src": "assets/projects/biomedical-signal-analysis/08-emg-stft-spectrogram.png",
+        "caption": "STFT Analysis — EMG spectrogram (Gluteus Maximus)"
+      }
+    ]
+  },
+  {
+    "id": "biomedical-signal-time-frequency-analysis",
+    "title": "Biomedical Signal Time-Frequency Analysis",
+    "category": "Biomedical",
+    "status": "Completed",
+    "year": "2026",
+    "stack": [
+      "Python",
+      "Streamlit",
+      "NumPy",
+      "SciPy",
+      "Pandas",
+      "Matplotlib",
+      "PyWavelets",
+      "NeuroKit2"
+    ],
+    "visualType": "spectrogram",
+    "short": "A Streamlit app for exploring how a signal's frequency content changes over time — synthetic, sine or real ECG signals through FFT, STFT and Continuous Wavelet Transform.",
+    "problem": "A single FFT collapses an entire signal into one static frequency spectrum — it shows that a frequency is present, not when it happens, which hides exactly the kind of transient, time-varying behaviour biomedical signals tend to have.",
+    "approach": "Built as a Streamlit application with three signal sources — a synthetic four-segment piecewise sinusoid (50→150→250→350 Hz) for visually checking time-frequency resolution, a configurable sine wave, or an ECG signal (simulated via NeuroKit2, or your own recording uploaded as CSV/TXT with automatic column detection and DC-offset removal). Any signal can then be inspected through a selectable window function (Rectangular, Bartlett, Hann, Hamming, Blackman), a global FFT spectrum, a Short-Time Fourier Transform with configurable window length and overlap, and a Continuous Wavelet Transform (Morlet, Mexican Hat, Gaussian) across a chosen scale range — including an interactive 3D time-frequency surface.",
+    "result": "An interactive comparison tool: the same signal viewed as a time-domain trace, a static FFT spectrum, a 2D STFT spectrogram, a CWT scalogram and a 3D time-frequency surface — including a full demo of uploading a real ECG recording end-to-end. Built to make the trade-off between time resolution and frequency resolution visible instead of purely theoretical.",
+    "link": "https://github.com/RNFazleR/biomedical-signal-time-frequency-analysis",
+    "links": {
+      "github": "https://github.com/RNFazleR/biomedical-signal-time-frequency-analysis"
+    },
+    "featured": false,
+    "tagline": "One spectrum tells you what's there. A spectrogram tells you when.",
+    "pipeline": [
+      "Signal Source",
+      "Window Selection",
+      "FFT",
+      "STFT",
+      "CWT",
+      "3D Time-Frequency Surface"
+    ],
+    "highlights": [
+      [
+        "Signals",
+        "Synthetic / Sine / ECG upload"
+      ],
+      [
+        "Windows",
+        "Rectangular / Bartlett / Hann / Hamming / Blackman"
+      ],
+      [
+        "STFT",
+        "Configurable window & overlap"
+      ],
+      [
+        "CWT",
+        "Morlet / Mexican Hat / Gaussian"
+      ]
+    ],
+    "details": "FFT gives a global view of which frequencies are present but discards when they occur. STFT and CWT sit alongside it specifically to recover that time information — STFT with a fixed window and configurable overlap, CWT with a bank of wavelet scales — so the same signal, including a real uploaded ECG recording, can be compared across three different time-frequency trade-offs (plus a 3D surface view) in one place.",
+    "learned": "Watching the same signal move through FFT, STFT and CWT made the time-frequency trade-off concrete: STFT's fixed window trades time and frequency resolution uniformly across the signal, while CWT's variable scale gives up some of that uniformity to resolve fast transients and slow trends differently — a distinction that's easy to state and much clearer to actually see once a real, uploaded ECG recording is the thing being analyzed.",
+    "screenshots": [
+      {
+        "src": "assets/projects/time-frequency-analysis/signal-input.png",
+        "caption": "Uploaded ECG signal — time domain"
+      },
+      {
+        "src": "assets/projects/time-frequency-analysis/fft-spectrum.png",
+        "caption": "FFT magnitude spectrum"
+      },
+      {
+        "src": "assets/projects/time-frequency-analysis/stft-spectrogram.png",
+        "caption": "STFT spectrogram"
+      },
+      {
+        "src": "assets/projects/time-frequency-analysis/stft-3d-surface.png",
+        "caption": "Interactive 3D time-frequency surface"
+      }
+    ]
   },
   {
     "id": "web3-lab",
