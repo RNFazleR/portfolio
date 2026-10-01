@@ -39,9 +39,7 @@ function render(){
 }
 
 function renderNow(){
-  const el = $(".now-grid");
-  if(!el || !NOW) return;
-  el.innerHTML = NOW.map(x => `
+  $(".now-grid").innerHTML = NOW.map(x => `
     <article>
       <span>${x.label}</span>
       <h3>${x.title}</h3>
@@ -65,7 +63,7 @@ function emgVisual(){
   // EMG burst aesthetic — two gait-cycle-like muscle activation bursts over a
   // quiet baseline, deterministic (not random) so the card doesn't reshuffle
   // on every re-render.
-  const w = 300, h = 100, n = 140;
+  const w = 300, n = 140;
   let d = "";
   for(let i = 0; i <= n; i++){
     const t = i / n;
@@ -103,7 +101,7 @@ function spectrogramVisual(){
   }
   return `<div class="visual spectrogram">
       <div class="spec-axis spec-axis-f">FREQ</div>
-      <div class="spec-grid" style="--cols:${cols};--rows:${rows}">${cells}</div>
+      <div class="spec-grid">${cells}</div>
       <div class="spec-axis spec-axis-t">TIME →</div>
       <span class="visual-label">STFT / CWT</span>
     </div>`;
@@ -138,25 +136,7 @@ function projectVisual(p){
   // never on position/index in the filtered list. This prevents Blockchain/Markets
   // cards from accidentally getting a Biomedical visual, and lets multiple
   // Biomedical projects each get their own distinct look.
-  if(p.category === "Biomedical"){
-    if(p.visualType === "emg") return emgVisual();
-    if(p.visualType === "spectrogram") return spectrogramVisual();
-    return `<div class="visual signal">
-      <div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
-      <span class="visual-label">EMG / GAIT</span>
-    </div>`;
-  }
-
-  if(p.category === "Blockchain"){
-    return `<div class="visual chain">
-      <div class="chain-orbit orbit-one"></div>
-      <div class="chain-orbit orbit-two"></div>
-      <div class="node">₿</div><div class="chain-line"></div>
-      <div class="node">◈</div><div class="chain-line"></div>
-      <div class="node">◆</div>
-      <span class="visual-label">ON-CHAIN / WEB3</span>
-    </div>`;
-  }
+  if(p.category === "Biomedical") return p.visualType === "emg" ? emgVisual() : spectrogramVisual();
 
   if(p.category === "Markets"){
     if(p.visualType === "options") return optionsVisual();
@@ -168,7 +148,14 @@ function projectVisual(p){
     </div>`;
   }
 
-  return `<div class="visual market"><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>`;
+  return `<div class="visual chain">
+      <div class="chain-orbit orbit-one"></div>
+      <div class="chain-orbit orbit-two"></div>
+      <div class="node">₿</div><div class="chain-line"></div>
+      <div class="node">◈</div><div class="chain-line"></div>
+      <div class="node">◆</div>
+      <span class="visual-label">ON-CHAIN / WEB3</span>
+    </div>`;
 }
 
 function renderProjects(category){
@@ -210,19 +197,10 @@ function openProject(id){
     </div>
   `).join("");
 
-  // Section numbers are assigned dynamically (not hardcoded) since optional
-  // sections — Screenshots, What I learned — only appear for some projects.
-  // Numbers are pre-assigned here, in final display order, so string
-  // interpolation order later in the template can't scramble them.
-  let secN = 0;
-  const num = () => String(++secN).padStart(2, "0");
-  const nIdea = num();
-  const nPipeline = num();
-  const nProblem = num();
-  const nApproach = num();
-  const nResult = num();
-  const nShots = (p.screenshots && p.screenshots.length) ? num() : null;
-  const nLearned = p.learned ? num() : null;
+  // Sections 01–05 always exist; the optional ones continue the numbering.
+  let n = 5;
+  const nShots = p.screenshots?.length ? "0" + ++n : null;
+  const nLearned = p.learned ? "0" + ++n : null;
 
   const screenshotsSection = nShots ? `
     <section class="case-section">
@@ -240,23 +218,9 @@ function openProject(id){
       <p class="modal-copy">${p.learned}</p>
     </section>` : "";
 
-  // Optional multi-link footer (GitHub / Live Demo / Documentation). Falls back to
-  // the single `link` field for older project entries that don't define `links`.
-  const external = p.links
-    ? [
-        ["github", "GitHub"],
-        ["demo", "Live Demo"],
-        ["docs", "Documentation"]
-      ].map(([key, label]) => {
-        const url = p.links[key];
-        if (!url) return "";
-        return url === "#"
-          ? `<span class="case-note">${label}: coming soon</span>`
-          : `<a class="project-link" href="${url}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`;
-      }).join("")
-    : (p.link && p.link !== "#"
-        ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener noreferrer">Open project ↗</a>`
-        : `<span class="case-note">Project link coming soon.</span>`);
+  const external = p.link && p.link !== "#"
+    ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>`
+    : `<span class="case-note">Project link coming soon.</span>`;
 
   $("#modalContent").innerHTML = `
     <div class="case-hero">
@@ -273,28 +237,28 @@ function openProject(id){
     <div class="case-stats">${highlights}</div>
 
     <section class="case-section">
-      <div class="case-label">${nIdea} / The idea</div>
+      <div class="case-label">01 / The idea</div>
       <p class="modal-copy">${p.details || p.short}</p>
     </section>
 
     <section class="case-section">
-      <div class="case-label">${nPipeline} / Pipeline</div>
+      <div class="case-label">02 / Pipeline</div>
       <div class="case-pipeline">${pipeline}</div>
     </section>
 
     <section class="case-section case-columns">
       <div>
-        <div class="case-label">${nProblem} / Problem</div>
+        <div class="case-label">03 / Problem</div>
         <p class="modal-copy">${p.problem}</p>
       </div>
       <div>
-        <div class="case-label">${nApproach} / Approach</div>
+        <div class="case-label">04 / Approach</div>
         <p class="modal-copy">${p.approach}</p>
       </div>
     </section>
 
     <section class="case-section">
-      <div class="case-label">${nResult} / Result</div>
+      <div class="case-label">05 / Result</div>
       <p class="modal-copy">${p.result}</p>
     </section>
     ${screenshotsSection}
@@ -355,7 +319,7 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 },{threshold:.12});
-$$(".section, .project, .timeline-item, .article").forEach(el => {
+$$(".section").forEach(el => {
   el.classList.add("reveal-on-scroll");
   observer.observe(el);
 });

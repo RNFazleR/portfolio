@@ -19,10 +19,6 @@
     "approach": "Built as a multi-page Streamlit dashboard where each sensor stream gets its own processing path: heel/toe force signals go through a Butterworth low-pass filter into heel-strike/toe-off event detection and gait-cycle segmentation; joint angles are normalized per cycle into a mean ± SD ensemble curve per joint; and each EMG channel goes through a Butterworth bandpass filter (20–450 Hz), full-wave rectification, a linear envelope and activation thresholding — with a dedicated STFT page for inspecting any EMG channel's time-frequency content.",
     "result": "A working analysis dashboard: upload raw sensor files and get gait events, per-joint kinematic curves, EMG activation timing and amplitude parameters (RMS, MAV, iEMG), and an EMG spectrogram — all from one interface, built as an engineering learning tool rather than a diagnostic device.",
     "link": "https://github.com/RNFazleR/Biomedical-Signal-Analysis",
-    "links": {
-      "github": "https://github.com/RNFazleR/Biomedical-Signal-Analysis"
-    },
-    "featured": false,
     "tagline": "From raw wearable-sensor traces to gait cycles, joint curves and muscle activation.",
     "pipeline": [
       "Sensor Upload (FSR / Angle / EMG)",
@@ -110,10 +106,6 @@
     "approach": "Built as a Streamlit application with three signal sources — a synthetic four-segment piecewise sinusoid (50→150→250→350 Hz) for visually checking time-frequency resolution, a configurable sine wave, or an ECG signal (simulated via NeuroKit2, or your own recording uploaded as CSV/TXT with automatic column detection and DC-offset removal). Any signal can then be inspected through a selectable window function (Rectangular, Bartlett, Hann, Hamming, Blackman), a global FFT spectrum, a Short-Time Fourier Transform with configurable window length and overlap, and a Continuous Wavelet Transform (Morlet, Mexican Hat, Gaussian) across a chosen scale range — including an interactive 3D time-frequency surface.",
     "result": "An interactive comparison tool: the same signal viewed as a time-domain trace, a static FFT spectrum, a 2D STFT spectrogram, a CWT scalogram and a 3D time-frequency surface — including a full demo of uploading a real ECG recording end-to-end. Built to make the trade-off between time resolution and frequency resolution visible instead of purely theoretical.",
     "link": "https://github.com/RNFazleR/biomedical-signal-time-frequency-analysis",
-    "links": {
-      "github": "https://github.com/RNFazleR/biomedical-signal-time-frequency-analysis"
-    },
-    "featured": false,
     "tagline": "One spectrum tells you what's there. A spectrogram tells you when.",
     "pipeline": [
       "Signal Source",
@@ -179,7 +171,6 @@
     "approach": "Explore smart contracts, stablecoin mechanics and decentralized application patterns through small experiments.",
     "result": "A growing notebook of prototypes, technical notes and questions worth investigating.",
     "link": "#",
-    "featured": false,
     "tagline": "Build the primitive first. Debate the narrative later.",
     "pipeline": [
       "Question",
@@ -229,10 +220,6 @@
     "approach": "Implemented without a dedicated options-pricing library so every step is visible: Black-Scholes(-Merton) analytically with a continuous dividend yield, Monte Carlo under Geometric Brownian Motion with a standard error, and a Cox-Ross-Rubinstein binomial tree via backward induction — extended to American early exercise. On top sit Delta/Gamma/Vega/Theta, a bisection implied-volatility solver and put-call parity checks. A market-data layer then pulls option chains from Yahoo Finance (or a CSV) through a pluggable provider interface, normalizes them into one schema, applies liquidity filters and model-free no-arbitrage checks, solves implied volatility per contract and builds the volatility smile, a 3D IV surface and a flat-volatility calibration report.",
     "result": "An interactive Streamlit pricing lab backed by 33 pytest unit tests: price European or American calls and puts three ways, compare runtime and convergence, inspect Greeks and payoff, then load a real option chain to see its smile, IV surface and how far a constant-volatility model misses market prices (MAE / RMSE / MAPE). Built as a learning and research tool — not trading advice or a trading system.",
     "link": "https://github.com/RNFazleR/Option-Pricing-engine",
-    "links": {
-      "github": "https://github.com/RNFazleR/Option-Pricing-engine"
-    },
-    "featured": false,
     "tagline": "Three ways to price the same option — and checking they agree.",
     "pipeline": [
       "Inputs (S, K, T, r, σ, q)",
@@ -281,7 +268,6 @@
     "approach": "Track liquidity, macro variables, crypto structure and competing bull/bear cases.",
     "result": "An evolving public research notebook rather than a signal-selling dashboard.",
     "link": "#",
-    "featured": false,
     "tagline": "A public notebook for evolving market theses.",
     "pipeline": [
       "Macro data",
