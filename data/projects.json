@@ -209,6 +209,63 @@
     "details": "This is intentionally a living lab. The goal is to understand what blockchain primitives are useful for by actually implementing and testing them, rather than collecting buzzwords."
   },
   {
+    "id": "option-pricing-engine",
+    "title": "Option Pricing Engine",
+    "category": "Markets",
+    "status": "Completed",
+    "year": "2026",
+    "stack": [
+      "Python",
+      "Streamlit",
+      "NumPy",
+      "pandas",
+      "Matplotlib",
+      "yfinance",
+      "pytest"
+    ],
+    "visualType": "options",
+    "short": "A from-scratch Python/Streamlit options pricing engine comparing Black-Scholes, Monte Carlo and binomial-tree pricing — extended with Greeks, implied volatility, American options and a real-market IV surface.",
+    "problem": "Options pricing libraries hide the numerical logic behind a single function call, which makes it hard to see why different models agree, where they diverge, and how a theoretical price holds up against real, messy market quotes.",
+    "approach": "Implemented without a dedicated options-pricing library so every step is visible: Black-Scholes(-Merton) analytically with a continuous dividend yield, Monte Carlo under Geometric Brownian Motion with a standard error, and a Cox-Ross-Rubinstein binomial tree via backward induction — extended to American early exercise. On top sit Delta/Gamma/Vega/Theta, a bisection implied-volatility solver and put-call parity checks. A market-data layer then pulls option chains from Yahoo Finance (or a CSV) through a pluggable provider interface, normalizes them into one schema, applies liquidity filters and model-free no-arbitrage checks, solves implied volatility per contract and builds the volatility smile, a 3D IV surface and a flat-volatility calibration report.",
+    "result": "An interactive Streamlit pricing lab backed by 33 pytest unit tests: price European or American calls and puts three ways, compare runtime and convergence, inspect Greeks and payoff, then load a real option chain to see its smile, IV surface and how far a constant-volatility model misses market prices (MAE / RMSE / MAPE). Built as a learning and research tool — not trading advice or a trading system.",
+    "link": "https://github.com/RNFazleR/Option-Pricing-engine",
+    "links": {
+      "github": "https://github.com/RNFazleR/Option-Pricing-engine"
+    },
+    "featured": false,
+    "tagline": "Three ways to price the same option — and checking they agree.",
+    "pipeline": [
+      "Inputs (S, K, T, r, σ, q)",
+      "Black-Scholes / Monte Carlo / Binomial",
+      "Greeks & Put-Call Parity",
+      "Implied Volatility",
+      "Market Option Chain",
+      "Liquidity & Arbitrage Filters",
+      "IV Smile / Surface",
+      "Calibration Report"
+    ],
+    "highlights": [
+      [
+        "Models",
+        "Black-Scholes / Monte Carlo / CRR tree"
+      ],
+      [
+        "Exercise",
+        "European & American, dividend yield"
+      ],
+      [
+        "Market data",
+        "Yahoo Finance or CSV option chains"
+      ],
+      [
+        "Testing",
+        "33 pytest unit tests"
+      ]
+    ],
+    "details": "The same option is priced three different ways on purpose: Black-Scholes is analytical and fast, Monte Carlo is flexible simulation-based pricing, and the binomial tree is an intuitive discrete-time framework that extends naturally to American early exercise. Convergence plots show the models meeting — Monte Carlo error shrinking as paths increase, the tree approaching Black-Scholes as steps increase — before the engine is pointed at real option chains.",
+    "learned": "Convergence made the math tangible: Monte Carlo error shrinks statistically with more simulated paths, while the binomial tree steps toward the Black-Scholes value as the time step shrinks. Real option chains were the other lesson — zero bids, stale after-hours quotes and missing strikes mean most of the market-data work is filtering and diagnosing data, not pricing it."
+  },
+  {
     "id": "market-notebook",
     "title": "Market Notebook",
     "category": "Markets",

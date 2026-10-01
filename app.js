@@ -109,6 +109,30 @@ function spectrogramVisual(){
     </div>`;
 }
 
+function optionsVisual(){
+  // Call-option payoff (hockey stick at strike K) with the smooth Black-Scholes
+  // value curve above it. N(x) uses a logistic approximation — decorative only.
+  const N = x => 1 / (1 + Math.exp(-1.702 * x));
+  const K = 100, vol = 0.35, toX = s => 20 + (s - 40) * 2.2, toY = v => 82 - v * 0.9;
+  let bs = "";
+  for(let s = 40; s <= 160; s += 2){
+    const d1 = (Math.log(s / K) + vol * vol / 2) / vol;
+    const v = s * N(d1) - K * N(d1 - vol);
+    bs += (s === 40 ? "M" : "L") + toX(s).toFixed(1) + "," + toY(v).toFixed(1) + " ";
+  }
+  const payoff = `M${toX(40)},${toY(0)} L${toX(K)},${toY(0)} L${toX(160)},${toY(60).toFixed(1)}`;
+  return `<div class="visual options">
+      <div class="wave-grid"></div>
+      <svg class="options-chart" viewBox="0 0 300 100" preserveAspectRatio="none">
+        <path class="payoff" d="${payoff}" />
+        <path class="bs-curve" d="${bs.trim()}" />
+        <line class="strike" x1="${toX(K)}" y1="8" x2="${toX(K)}" y2="90" />
+      </svg>
+      <span class="options-k">K</span>
+      <span class="visual-label">PAYOFF / BLACK-SCHOLES</span>
+    </div>`;
+}
+
 function projectVisual(p){
   // Visual is based on the PROJECT CATEGORY (and an explicit visualType field),
   // never on position/index in the filtered list. This prevents Blockchain/Markets
@@ -135,6 +159,7 @@ function projectVisual(p){
   }
 
   if(p.category === "Markets"){
+    if(p.visualType === "options") return optionsVisual();
     return `<div class="visual market">
       <div class="market-grid-lines"></div>
       <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
