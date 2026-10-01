@@ -78,6 +78,20 @@ dialog{width:min(700px,calc(100% - 30px));border:1px solid var(--line);backgroun
 .spec-axis-f{left:12px;top:38px}
 .spec-axis-t{left:14px;right:auto;bottom:12px}
 
+/* Option payoff visual — Option Pricing Engine */
+.visual.options{background:linear-gradient(160deg,#17211e,#090c0c 72%);display:flex;align-items:center;justify-content:center}
+.options-chart{position:relative;z-index:2;width:88%;height:62%;overflow:visible}
+.options-chart path,.options-chart line{fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.options-chart .payoff{stroke:#92989d;stroke-width:1.4;stroke-dasharray:4 3}
+.options-chart .bs-curve{stroke:var(--accent);stroke-width:2;filter:drop-shadow(0 0 6px #d8ff4f66)}
+.options-chart .strike{stroke:#d8ff4f33;stroke-width:1}
+.options-k{position:absolute;left:50.6%;bottom:12%;transform:translateX(-50%);font:9px 'DM Mono';color:#818b83}
+.project[data-id="option-pricing-engine"] .visual{box-shadow:inset 0 0 90px #d8ff4f0b}
+
+/* Project/hero visuals are always dark panels, so keep the neon accent there
+   even in light mode (the darker light-mode accent is for light surfaces). */
+.light .visual,.light .hero-visual{--accent:#d8ff4f}
+
 .project[data-id="biomedical-signal-analysis"] .visual{box-shadow:inset 0 0 90px #d8ff4f14}
 .project[data-id="biomedical-signal-time-frequency-analysis"] .visual{box-shadow:inset 0 0 90px #4fd8ff14}
 
