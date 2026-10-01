@@ -2,6 +2,8 @@
 
 Personal portfolio for Rifat Naufal Fazle Rabb.
 
+How it works internally (rendering, project schema, card visuals, theming, breakpoints): see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
 ## Local development
 
 Because the site loads JSON files with `fetch()`, serve the folder through a local server:
